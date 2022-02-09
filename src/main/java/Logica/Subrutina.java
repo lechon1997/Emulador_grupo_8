@@ -1,15 +1,20 @@
 package Logica;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Subrutina {
     private String comando;
-    private List<Integer> parametros;
+    private List<String> parametros;
     
-    public Subrutina(String comando, List parametros) {
-        this.comando = comando;
-        this.parametros = parametros;
+    public Subrutina(String[] subrutina) {
+        this.comando = subrutina[0];
+        this.parametros = new ArrayList<>();
+        
+        for(int i = 1; i < subrutina.length; i++){
+            this.parametros.add(subrutina[i]);
+        }
     }
-
+    
     public String getComando() {
         return comando;
     }
