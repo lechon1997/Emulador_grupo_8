@@ -1,6 +1,6 @@
 package Presentacion;
 
-import Logica.Fabrica;
+import     Logica.Fabrica;
 import Logica.ICPU;
 
 import java.util.Scanner;
@@ -13,10 +13,12 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese la subrutina: ");
-        String subrutina = scanner.nextLine();
-
-        System.out.println(subrutina);
+        String entrada = scanner.nextLine();
         
+
+
+
+        //String[] subrutina = scanner.nextLine();
 
     }
 

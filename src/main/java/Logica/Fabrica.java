@@ -7,6 +7,7 @@ public class Fabrica {
 
     }
 
+    //Singleton
     public static Fabrica getInstance(){
         if(instance == null){
             instance = new Fabrica();

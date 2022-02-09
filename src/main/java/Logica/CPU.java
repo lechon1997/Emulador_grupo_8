@@ -1,10 +1,21 @@
 package Logica;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//Controlador CPU - Controlador de tipo Fachada
 public class CPU implements ICPU{
     private static CPU instance;
 
-    private CPU(){
+    //Map<String, Subrutina> subruitinas;
+    private List<String> subrutinas;
+    //private String[][]subruitinas;
+    private int registros[] = new int[43];
 
+    private CPU(){
+        subrutinas = new ArrayList<>();
     }
 
     public static CPU getInstance() {
@@ -16,11 +27,20 @@ public class CPU implements ICPU{
 
     @Override
     public void hola() {
-        System.out.println("hola mundo :s");
+
     }
 
     @Override
+    public void agregarSubrutina(String subrutinas) {
+        for(int i = 0; i < subrutinas.length(); i++){
+
+        }
+    }
+
+
+    @Override
     public void MOV(int Rxx, int Ryy) {
+        Ryy = Rxx;
 
     }
 
