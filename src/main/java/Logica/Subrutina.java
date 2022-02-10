@@ -16,11 +16,6 @@ public class Subrutina {
         for(int i =0; i < parametro.length; i++){
             this.parametros.add(parametro[i]);
         }
-
-        Iterator it = this.parametros.iterator();
-        while(it.hasNext()){
-            System.out.println((String)it.next());
-        }
     }
 
     public String getComando() {

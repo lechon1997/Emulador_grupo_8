@@ -56,48 +56,58 @@ public class CPU implements ICPU{
 
     @Override
     public void ejecutarSubrutinas() { // :O
-        for(int i = 0; i < this.subrutinas.size(); i++){
+        int i = 0;
+        do {
             Subrutina subr = (Subrutina)this.subrutinas.get(i);
 
             switch(subr.getComando()){
                 case "MOV":
                     String param = (String)subr.getParametros().get(0);
                     if(param.charAt(0) == 'R'){
-                        registros[0] = 3;
-
                         MOV(getIndex((String)subr.getParametros().get(0)),getIndex((String)subr
-                        .getParametros().get(1)));
-                        //System.out.println(registros[2]);
+                                .getParametros().get(1)));
                     }else{
                         MOV((String)subr.getParametros().get(0), getIndex((String)subr
-                        .getParametros().get(1)));
-                        //System.out.println(registros[1]);
+                                .getParametros().get(1)));
                     }
+                    i++;
                     break;
                 case "ADD":
                     ADD(getIndex((String)subr.getParametros().get(0)), getIndex((String)subr.getParametros().get(1)));
+                    i++;
                     break;
                 case "DEC":
                     DEC(getIndex((String)subr.getParametros().get(0)));
+                    i++;
                     break;
                 case "INC":
                     INC(getIndex((String)subr.getParametros().get(0)));
+                    i++;
                     break;
                 case "INV":
                     INV(getIndex((String)subr.getParametros().get(0)));
+                    i++;
                     break;
                 case "JMP":
                     i = JMP(getIndex((String)subr.getParametros().get(0)));
                     break;
                 case "JZ":
-
+                    if(JZ(getIndex((String)subr.getParametros().get(0))) != -1){
+                        i = JZ(getIndex((String)subr.getParametros().get(0)));
+                    }else{
+                        i++;
+                    }
                     break;
                 case "NOP":
+                    NOP();
+                    i++;
                     break;
             }
-        }
-    }
+        }while(i < this.subrutinas.size());
 
+        System.out.println(String.valueOf(registros[42]));
+
+    }
 
     private void MOV(int Rxx, int Ryy) {
         registros[Ryy] = registros[Rxx];
@@ -121,14 +131,11 @@ public class CPU implements ICPU{
         }
 
     private void INV(int Rxx){
-
-        String Binario = Integer.toBinaryString(Rxx);
-        System.out.println(Binario);
+        int dato = registros[Rxx];
+        String Binario = Integer.toBinaryString(dato);
         String NewBinario = "" ;
         int[] arr = Arrays.stream(Binario.substring(0, Binario.length()).split(""))
                 .map(String::trim).mapToInt(Integer::parseInt).toArray();
-
-
 
         for (int i = 0; i< arr.length; i++){
             if (arr[i]==0){
@@ -144,26 +151,20 @@ public class CPU implements ICPU{
         NewBinario = new StringBuilder(NewBinario).reverse().toString();
         int NewRxx = Integer.parseInt(NewBinario);
         NewRxx= Integer.parseInt(NewBinario,2);
-        System.out.println(NewRxx);
-
-        }
+        registros[Rxx] = NewRxx;
     }
-
 
     private int JMP(int d){
-        return d;
+        return d-1;
     }
-
-    private void JZ(int d){
+    
+    private int JZ(int d){
         if(registros[0] == 0){
-            JMP(d);
-        }
-    }
-   /* private int JZ (int d){
 
-        if (parametros[0]==0){
             return d-1;
         }
-        return 1;
-    }*/
+        return -1;
+
+    }
+    private void NOP(){}
 }
